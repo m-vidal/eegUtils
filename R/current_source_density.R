@@ -37,7 +37,7 @@ interp_elecs.eeg_data <- function(data,
   }
 
   bads_check <- bad_elecs %in% data$chan_info$electrode
-
+  
   if (!all(bads_check)) {
     stop("No specified channels found.")
   }
@@ -49,14 +49,13 @@ interp_elecs.eeg_data <- function(data,
     bad_elecs <- bad_elecs[bads_check]
   }
 
-  data$chan_info <- validate_channels(data$chan_info,
-                                      channel_names(data))
-  missing_coords <- apply(is.na(data$chan_info),
-                          1,
-                          any)
+  #data$chan_info <- validate_channels(data$chan_info,channel_names(data))
+  #missing_coords <- apply(is.na(data$chan_info),1,any)
+
+  missing_coords <- rep(FALSE,length(data$chan_info$electrode))
   missing_chans <- names(data$signals)[missing_coords]
 
-  if (any(missing_coords)) {
+  if (0) {
     message("Coords missing for electrodes ",
             paste0(missing_chans,
                    collapse = " "))
